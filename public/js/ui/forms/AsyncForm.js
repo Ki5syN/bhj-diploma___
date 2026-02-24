@@ -6,44 +6,70 @@
  * для последующей обработки
  * */
 class AsyncForm {
-  /**
-   * Если переданный элемент не существует,
-   * необходимо выкинуть ошибку.
-   * Сохраняет переданный элемент и регистрирует события
-   * через registerEvents()
-   * */
-  constructor(element) {
+	/**
+	 * Если переданный элемент не существует,
+	 * необходимо выкинуть ошибку.
+	 * Сохраняет переданный элемент и регистрирует события
+	 * через registerEvents()
+	 * */
+	constructor(element) {
+		if (!element) {
+			throw new Error("Ошибка")
+		}
 
-  }
+		this.element = element;
 
-  /**
-   * Необходимо запретить отправку формы и в момент отправки
-   * вызывает метод submit()
-   * */
-  registerEvents() {
+		this.registerEvents()
 
-  }
+	}
 
-  /**
-   * Преобразует данные формы в объект вида
-   * {
-   *  'название поля формы 1': 'значение поля формы 1',
-   *  'название поля формы 2': 'значение поля формы 2'
-   * }
-   * */
-  getData() {
+	/**
+	 * Необходимо запретить отправку формы и в момент отправки
+	 * вызывает метод submit()
+	 * */
+	registerEvents() {
+		this.element.addEventListener("submit", event => {
+			event.preventDefault();
+			this.submit(this.form)
 
-  }
+		})
 
-  onSubmit(options){
+	}
 
-  }
+	/**
+	 * Преобразует данные формы в объект вида
+	 * {
+	 *  'название поля формы 1': 'значение поля формы 1',
+	 *  'название поля формы 2': 'значение поля формы 2'
+	 * }
+	 * */
+	getData() {
 
-  /**
-   * Вызывает метод onSubmit и передаёт туда
-   * данные, полученные из метода getData()
-   * */
-  submit() {
+		const form = this.element.querySelector("form") || this.element;
 
-  }
+		const formData = new FormData(form)
+		return Object.fromEntries(formData.entries())
+
+		/**
+		 * const data = {}
+		 * for(const [key,value] of formData.entries() ) {
+		 *  data[key] = value }
+		 */
+
+
+	}
+
+	onSubmit(options) {
+
+	}
+
+	/**
+	 * Вызывает метод onSubmit и передаёт туда
+	 * данные, полученные из метода getData()
+	 * */
+	submit() {
+		const data = this.getData();
+		this.onSubmit(data);
+
+	}
 }
