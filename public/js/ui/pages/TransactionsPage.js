@@ -24,8 +24,8 @@ class TransactionsPage {
 	 * Вызывает метод render для отрисовки страницы
 	 * */
 	update() {
-		if (this.lastOptions) {
-			this.render(this.lastOptions);
+		if (this.element.lastOptions) {
+			this.render(this.element.lastOptions);
 		} else {
 			return
 		}
@@ -39,16 +39,15 @@ class TransactionsPage {
 	 * */
 	registerEvents() {
 		this.element.addEventListener("click", event => {
-			if (event.target.closest(".btn-danger")) {
-				this.removeAccount()
-			}
-			if (event.target.closest(".transaction__remove")) {
-				const button = event.target.closest(".transaction__remove");
-				const id = button.dataset.id;
-				this.removeTransaction(id);
-			}
-		})
+			const transactionBtn = event.target.closest(".transaction__remove");
+			const accountBtn = event.target.closest(".btn-danger");
 
+			if (transactionBtn) {
+				this.removeTransaction(transactionBtn.dataset.id);
+			} else if (accountBtn) {
+				this.removeAccount();
+			}
+		});
 	}
 
 	/**
@@ -67,12 +66,12 @@ class TransactionsPage {
 		console.log(accountId)
 
 
-		Account.remove(accountId, (err, response) => {
-			if (err) return;
-
-			this.clear()
-			App.updateWidgets();
-			App.updateForms()
+		Account.remove({id: accountId}, (err, response) => {
+			if (response.success) {
+				this.clear();
+				App.updateWidgets();
+				App.updateForms();
+			}
 		})
 	}
 
@@ -86,11 +85,13 @@ class TransactionsPage {
 
 		const result = confirm("Вы действительно хотите удалить эту транзакцию?");
 		if (!result) return;
+		console.log({data: id });
 
-		Transaction.remove(id, (err, response) => {
+		Transaction.remove({id: id }, (err, response) => {
 			if (err) return;
 			if (response.success) {
-				App.update()
+				console.log({response: response})
+				this.update()
 			}
 
 		})
@@ -178,7 +179,6 @@ class TransactionsPage {
 	 * */
 	getTransactionHTML(item) {
 		const {
-			account_id,
 			created_at,
 			id,
 			name,

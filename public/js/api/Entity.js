@@ -41,7 +41,7 @@ class Entity {
 	static remove(data, callback) {
 		createRequest({
 			url: this.URL,
-			data: JSON.stringify(data),
+			data: data,
 			method: 'DELETE',
 			callback: callback
 		});

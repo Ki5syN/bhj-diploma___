@@ -3,59 +3,56 @@
  * на сервер.
  * */
 const createRequest = ({
-	url,
-	method = "GET",
-	data = {},
-	callback
+    url,
+    method = "GET",
+    data = {},
+    callback = () => {}
 }) => {
-	const xhr = new XMLHttpRequest();
-	xhr.responseType = "json";
 
-	try {
-		let finalUrl = url;
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = "json";
 
-		if (method === "GET" && data && Object.keys(data).length) {
-			const params = new URLSearchParams(data).toString();
-			finalUrl += `?${params}`;
-		}
+    let finalUrl = url;
+    let formData = null;
 
+    if (method === "GET" && Object.keys(data).length) {
+        const params = new URLSearchParams(data).toString();
+        finalUrl += `?${params}`;
+    } else {
+        formData = new FormData();
+        for (let key in data) {
+            formData.append(key, data[key]);
+        }
+    }
 
-		xhr.open(method, finalUrl);
+    try {
 
-		xhr.onload = () => {
-			if (xhr.status >= 200 && xhr.status < 300) {
-				callback(null, xhr.response);
-			} else {
-				callback({
-					status: xhr.status,
-					message: xhr.statusText
-				}, null);
-			}
-		};
+        xhr.open(method, finalUrl);
 
-		xhr.onerror = () => {
-			callback({
-				status: xhr.status,
-				message: "Network Error"
-			}, null);
-		};
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    callback(null, xhr.response);
+                } else {
+                    callback(xhr.status, null);
+                }
+            }
+        };
 
-		if (method !== "GET") {
-			const formData = new FormData();
-			if (method !== "DELETE") {
-				for (let key in data) {
-					formData.append(key, data[key]);
-				}
-			}
+        xhr.onerror = () => {
+            callback({
+                status: xhr.status,
+                message: "Network Error"
+            }, null);
+        };
 
-			xhr.send(formData);
-		} else {
-			xhr.send();
-		}
+        if (method !== "GET") {
+            xhr.send(formData);
+        } else {
+            xhr.send();
+        }
 
-
-
-	} catch (err) {
-		callback(err, null);
-	}
+    } catch (err) {
+        callback(err, null);
+    }
 };

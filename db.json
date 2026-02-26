@@ -100,11 +100,6 @@
       "id": "etwxj93skmlwfx8e5"
     },
     {
-      "name": "3",
-      "user_id": "etwxj9am4mlwdbikk",
-      "id": "etwxj961kmlwhytr9"
-    },
-    {
       "name": "4",
       "user_id": "etwxj9am4mlwdbikk",
       "id": "etwxj9830mlwiy22h"
@@ -487,15 +482,6 @@
       "created_at": "2026-02-22T08:05:20.251Z"
     },
     {
-      "id": "etwxj961cmlxgsdqp",
-      "type": "income",
-      "name": "11",
-      "sum": 500,
-      "account_id": "etwxj9aw8mlwfvxcc",
-      "user_id": "etwxj9am4mlwdbikk",
-      "created_at": "2026-02-22T08:07:01.008Z"
-    },
-    {
       "id": "etwxj94ewmlxgudnz",
       "type": "income",
       "name": "11",
@@ -503,24 +489,6 @@
       "account_id": "etwxj93skmlwfx8e5",
       "user_id": "etwxj9am4mlwdbikk",
       "created_at": "2026-02-22T08:08:34.222Z"
-    },
-    {
-      "id": "etwxj97xgmlz2yh5d",
-      "type": "income",
-      "name": "1",
-      "sum": 500,
-      "account_id": "etwxj9aw8mlwfvxcc",
-      "user_id": "etwxj9am4mlwdbikk",
-      "created_at": "2026-02-23T11:15:23.088Z"
-    },
-    {
-      "id": "etwxj9ap4mlz3bfs4",
-      "type": "income",
-      "name": "3",
-      "sum": 500,
-      "account_id": "etwxj9aw8mlwfvxcc",
-      "user_id": "etwxj9am4mlwdbikk",
-      "created_at": "2026-02-23T11:25:27.843Z"
     },
     {
       "id": "etwxj93l4mlz3whpt",
@@ -712,13 +680,22 @@
       "created_at": "2026-02-23T16:15:35.725Z"
     },
     {
-      "id": "etwxj96t0mlzdsj7e",
-      "type": "expense",
-      "name": "5",
-      "sum": 150,
-      "account_id": "etwxj9aw8mlwfvxcc",
+      "id": "etwxj91iwmm3la55d",
+      "type": "income",
+      "name": "1",
+      "sum": 100,
+      "account_id": "etwxj93skmlwfx8e5",
       "user_id": "etwxj9am4mlwdbikk",
-      "created_at": "2026-02-23T16:18:41.594Z"
+      "created_at": "2026-02-26T14:59:25.200Z"
+    },
+    {
+      "id": "etwxj9b7smm3lbdwp",
+      "type": "income",
+      "name": "11",
+      "sum": 50,
+      "account_id": "etwxj93skmlwfx8e5",
+      "user_id": "etwxj9am4mlwdbikk",
+      "created_at": "2026-02-26T15:00:23.208Z"
     }
   ]
 }
