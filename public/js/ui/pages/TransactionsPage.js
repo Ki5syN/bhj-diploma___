@@ -115,16 +115,16 @@ class TransactionsPage {
 			if (err || !response.success) return;
 			console.log(response)
 			this.renderTitle(response.data.name);
+		});
 
-
-			Transaction.list({
+		Transaction.list({
 				account_id: accountId
 			}, (err, response) => {
 				if (err || !response.success) return;
 				console.log("Transactions:", response.data);
 				this.renderTransactions(response.data);
-			});
 		});
+		
 	}
 
 	/**
@@ -147,30 +147,19 @@ class TransactionsPage {
 	}
 
 	/**
-	 * Форматирует дату в формате 2019-03-10 03:20:41 (строка)
+	 * Форматирует дату в формате 	 (строка)
 	 * в формат «10 марта 2019 г. в 03:20»
 	 * */
 	formatDate(date) {
-		const [data, time] = date.split("T");
-		const [year, namberMonth, day] = data.split("-");
-		const [hour, min] = time.split(":");
-		const months = [
-			"января",
-			"февраля",
-			"марта",
-			"апреля",
-			"мая",
-			"июня",
-			"июля",
-			"августа",
-			"сентября",
-			"октября",
-			"ноября",
-			"декабря"
-		]
-
-		const month = months[Number(namberMonth) - 1];
-		return `${day} ${month} ${year} г. в ${hour}:${min}`
+		const data = date;
+		options = {
+			year: "numeric",
+			month: "long",
+			day: "numeric",
+			hour: "2-digit",
+			minute: "2-digit",
+		}
+		data.toLocaleString("ru-RU", options)		
 	}
 
 	/**

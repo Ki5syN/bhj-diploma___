@@ -110,7 +110,7 @@ class AccountsWidget {
 		} = item;
 
 		return `
-      <li class="active account" data-id=${id}>
+      <li class="account" data-id=${id}>
         <a href="#">
           <span>${name}</span> /
           <span>${sum} ₽</span>

@@ -24,19 +24,8 @@ const createRequest = ({
             formData.append(key, data[key]);
         }
     }
-
-    try {
-
-        xhr.open(method, finalUrl);
-
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === 4) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    callback(null, xhr.response);
-                } else {
-                    callback(xhr.status, null);
-                }
-            }
+        xhr.onload = () => {            
+            callback(null, xhr.response);                
         };
 
         xhr.onerror = () => {
@@ -44,15 +33,16 @@ const createRequest = ({
                 status: xhr.status,
                 message: "Network Error"
             }, null);
-        };
+        
+    }
 
-        if (method !== "GET") {
-            xhr.send(formData);
-        } else {
-            xhr.send();
-        }
+    try {
 
+        xhr.open(method, finalUrl);        
+
+        xhr.send(formData);
+        
     } catch (err) {
         callback(err, null);
     }
-};
+}
