@@ -150,16 +150,14 @@ class TransactionsPage {
 	 * Форматирует дату в формате 	 (строка)
 	 * в формат «10 марта 2019 г. в 03:20»
 	 * */
-	formatDate(date) {
-		const data = date;
-		options = {
+	formatDate(date) {		
+		return new Date(date).toLocaleString("ru-RU", {
 			year: "numeric",
 			month: "long",
 			day: "numeric",
 			hour: "2-digit",
-			minute: "2-digit",
-		}
-		data.toLocaleString("ru-RU", options)		
+			minute: "2-digit"
+		});	
 	}
 
 	/**
